@@ -592,12 +592,17 @@
 <tbody>
 <tr>
 <td style="text-align: center;"><code>1.0</code></td>
-<td>Criação do documento MER</td>
+<td>Criação e preenchimento do documento MER</td>
 <td><a href="https://github.com/PhFariaa">Pedro Henrique</a></td>
 </tr>
 <tr>
 <td style="text-align: center;"><code>1.1</code></td>
 <td>Adição do MER no GitHub</td>
+<td><a href="https://github.com/andre-maia51">André Maia</a></td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>1.2</code></td>
+<td>Alteração das entidades, atributos e relacionamentos do MER</td>
 <td><a href="https://github.com/andre-maia51">André Maia</a></td>
 </tr>
 </tbody>
@@ -606,147 +611,110 @@
 <p>O MER é uma ferramenta usada para representar a estrutura de um banco de dados de forma conceitual, destacando as entidades que o compõem os relacionamentos entre elas.</p>
 <h2 id="1-entidades">1. Entidades</h2>
 <ul>
-<li><strong>Jogador</strong></li>
+<li><strong>Personagem</strong><ul>
+<li><strong>Jogador (PC)</strong></li>
+<li><strong>NPC</strong><ul>
+<li><strong>Professor</strong></li>
+<li><strong>Aluno</strong></li>
+<li><strong>Inimigo</strong></li>
+<li><strong>Fred e Jorge</strong></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><strong>Inventário</strong></li>
 <li><strong>Casa</strong></li>
 <li><strong>Área</strong></li>
 <li><strong>Região</strong></li>
 <li><strong>Mapa</strong></li>
-<li><strong>NPC (Professor / Inimigo / Aluno / Fred e Jorge)</strong></li>
-<li><strong>InstanciaNPC</strong></li>
-<li><strong>Feitiços</strong></li>
-<li><strong>Habilidades (Inteligência / Coragem / Lealdade / Ambição)</strong></li>
-<li><strong>Item (Poção / Livros)</strong></li>
+<li><strong>Feitiço</strong></li>
+<li><strong>Habilidade</strong><ul>
+<li><strong>Inteligência</strong></li>
+<li><strong>Coragem</strong></li>
+<li><strong>Lealdade</strong></li>
+<li><strong>Ambição</strong></li>
+</ul>
+</li>
+<li><strong>Item</strong><ul>
+<li><strong>Livro</strong></li>
+<li><strong>Poção</strong></li>
+</ul>
+</li>
 <li><strong>Missão</strong></li>
 </ul>
 <h2 id="2-atributos">2. Atributos</h2>
 <ul>
-<li><strong>Jogador</strong>: <ins>id-jogador</ins>, vida, nivel, nome, inventario, casa, area, habilidades, feitico;</li>
-<li><strong>Inventário</strong>: <ins>id-inventario</ins>, itens, tamanho, id-jogador;</li>
+<li><strong>Personagem</strong>: <ins>id-personagem</ins>, vida, nivel, nome;<ul>
+<li><strong>Jogador (PC)</strong>: varinha;</li>
+<li><strong>NPC</strong>: falas;<ul>
+<li><strong>Professor</strong>: vantagens, disciplina;</li>
+<li><strong>Aluno</strong>: vantagens;</li>
+<li><strong>Inimigo</strong>: N/A;</li>
+<li><strong>Fred e Jorge</strong>: N/A.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Inventário</strong>: <ins>id-inventario</ins>, tamanho;</li>
 <li><strong>Casa</strong>: <ins>id-casa</ins>, nome-casa, professor-responsavel, vantagens, alunos;</li>
 <li><strong>Área</strong>: <ins>id-area</ins>, area-sul, area-norte, area-leste, area-oeste;</li>
 <li><strong>Região</strong>: <ins>id-regiao</ins>, descricao-regiao;</li>
-<li><strong>Mapa</strong>: <ins>id-mapa</ins>, regiao;</li>
-<li><strong>NPC</strong>: <ins>id-NPC</ins>, instancia-NPC;<ul>
-<li><strong>InstanciaNPC</strong>: nome, tipo-NPC, falas;<ul>
-<li><strong>Professor</strong>: casa, disciplina, item, vantagens;</li>
-<li><strong>Inimigo</strong>: pontos-vida, habilidades;</li>
-<li><strong>Aluno</strong>: casa, item, vantagens;</li>
-<li><strong>Fred e Jorge</strong>: inventarios, itens, area.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>Habilidades</strong>: <ins>id-habilidade</ins>, tipo, nível;</li>
-<li><strong>Item</strong>: <ins>id-item</ins>, instancia-item;<ul>
+<li><strong>Mapa</strong>: <ins>id-mapa</ins>;</li>
+<li><strong>Habilidade</strong>: <ins>id-habilidade</ins>, nivel;</li>
+<li><strong>Item</strong>: <ins>id-item</ins>;<ul>
 <li><strong>Poção</strong>: tipo, efeito;</li>
-<li><strong>Livros</strong>: habilidade, paginas.</li>
+<li><strong>Livros</strong>: habilidade, nome-feitico.</li>
 </ul>
 </li>
-<li><strong>Missão</strong>: <ins>id-missao</ins>, recompensas, participantes;</li>
+<li><strong>Missão</strong>: <ins>id-missao</ins>, recompensa, participantes;</li>
 <li><strong>Feitiços</strong>: <ins>id-feitico</ins>, tipo-feitico, habilidade-requerida.</li>
 </ul>
 <h2 id="3-relacionamentos">3. Relacionamentos</h2>
-<p><strong>Jogador - Inventário</strong></p>
-<ul>
-<li>Um jogador possui um inventário;</li>
-<li>Cardinalidade: (1, 1).</li>
-</ul>
-<p><strong>Jogador - Casa</strong></p>
-<ul>
-<li>Um jogador tem uma casa;</li>
-<li>Cardinalidade: (1, 1).</li>
-</ul>
-<p><strong>Jogador - Área</strong></p>
-<ul>
-<li>Um jogador está em uma área, e uma área pode conter vários jogadores; </li>
-<li>Cardinalidade: (N, 1).</li>
-</ul>
-<p><strong>Jogador - NPC</strong></p>
-<ul>
-<li>Um jogador interage com vários NPCs, e um NPC pode interagir com vários jogadores; </li>
-<li>Cardinalidade: (M, N).</li>
-</ul>
-<p><strong>Jogador - Feitiço</strong></p>
-<ul>
-<li>Um jogador conjura vários feitiços, e um feitiço pode ser conjurado por vários jogadores;</li>
-<li>Cardinalidade: (M, N).</li>
-</ul>
-<p><strong>Jogador - Habilidade</strong></p>
-<ul>
-<li>Um jogador tem várias habilidades, e uma habilidade é possuída por vários jogadores;</li>
-<li>Cardinalidade: (M, N).</li>
-</ul>
-<p><strong>Jogador - Itens</strong></p>
-<ul>
-<li>Um jogador tem vários itens, e um item pode estar com vários jogadores;</li>
-<li>Cardinalidade: (M, N).</li>
-</ul>
-<p><strong>Jogador - Missão</strong></p>
-<ul>
-<li>Um jogador participa de várias missões, e uma missão está atrelada a um jogador;</li>
-<li>Cardinalidade: (1, N).</li>
-</ul>
-<p><strong>Inventário - NPC</strong></p>
-<ul>
-<li>Um inventário pode ser possuído por vários NPCs, e um NPC possui um inventário;</li>
-<li>Cardinalidade: (1, N).</li>
-</ul>
-<p><strong>Casa - NPC</strong></p>
-<ul>
-<li>Uma casa está atrelada a um NPC, e um NPC tem uma casa;</li>
-<li>Cardinalidade: (1, 1).</li>
-</ul>
-<p><strong>Área - NPC</strong></p>
-<ul>
-<li>Uma área pode conter nários NPCs, e um NPC está em uma área;</li>
-<li>Cardinalidade: (N, 1).</li>
-</ul>
-<p><strong>Área - Área</strong></p>
-<ul>
-<li>Uma área pode estar conectada a várias outras áreas;</li>
-<li>Cardinalidade: (M, N).</li>
-</ul>
-<p><strong>Área - Região</strong></p>
-<ul>
-<li>Uma área pertence a uma região, e uma região contém várias áreas;</li>
-<li>Cardinalidade: (N, 1).</li>
-</ul>
-<p><strong>Região - Mapa</strong></p>
-<ul>
-<li>Uma região está em um mapa, e um mapa possui várias regiões;</li>
-<li>Cardinalidade: (N, 1).</li>
-</ul>
-<p><strong>Professor - Feitiço</strong></p>
-<ul>
-<li>Um professor ensina vários feitiços, e um feitiço pode ser ensinado vários professores;</li>
-<li>Cardinalidade: (M, N).</li>
-</ul>
-<p><strong>Professor - Jogador</strong></p>
-<ul>
-<li>Um professor fala com um jogador, e um jogador fala com vários professores;</li>
-<li>Cardinalidade: (N, 1).</li>
-</ul>
-<p><strong>Habilidades - Casa</strong></p>
-<ul>
-<li>Uma habilidade é influenciada por uma casa, e uma casa influencia várias habilidades;</li>
-<li>Cardinalide: (N, 1).</li>
-</ul>
-<p><strong>Poção - Inventário</strong></p>
-<ul>
-<li>Uma poção pode estar em vários inventários, e um inventário pode conter várias poções;</li>
-<li>Cardinalidade: (M, N).</li>
-</ul>
-<p><strong>Livro - Feitiço</strong></p>
-<ul>
-<li>Um livro ensina vários feitiços, e um feitiço pode estar em vários livros;</li>
-<li>Cardinalidade: (M, N).</li>
-</ul>
-<p><strong>Feitiço - Habilidade</strong></p>
-<ul>
-<li>Um feitiço requer várias habilidades, e uma habilidade é necessária para vários feitiços;</li>
-<li>Cardinalidade: (M, N).</li>
-</ul>
+<p><strong>Personagem - Inventário</strong>
+- Um personagem <strong>possui</strong> um inventário e um inventário pode ser possuído por um ou mais personagens;
+- Cardinalidade: (1:N).</p>
+<p><strong>Personagem - Habilidade</strong>
+- Um personagem <strong>possui</strong> uma ou mais habilidades e uma habilidade pode ser possuída por zero ou mais personagens;
+- Cardinalidade: (M:N).</p>
+<p><strong>Personagem - Missão</strong>
+- Um personagem <strong>participa</strong> de uma ou mais missões e uma missão pode ser composta por um ou mais personagens;
+- Cardinalidade: (M:N).</p>
+<p><strong>Personagem - Área</strong>
+- Um personagem <strong>está</strong> em uma área e uma área pode conter zero ou mais personagens;
+- Cardinalidade: (1:N).</p>
+<p><strong>Jogador(PC) - NPC</strong>
+- Um jogador <strong>interage</strong> com zero ou mais NPCs e um NPC pode interagir com zero ou mais jogadores;
+- Cardinalidade: (M:N).</p>
+<p><strong>Jogador(PC) - Casa</strong>
+- Um jogador <strong>pertence</strong> a uma casa e uma casa possui um ou mais jogadores;
+- Cardinalidade: (1:N).</p>
+<p><strong>Professor - Casa</strong>
+- Um professor <strong>pertence</strong> a uma casa e uma casa possui um ou mais professores;
+- Cardinalidade: (1:N).</p>
+<p><strong>Aluno - Casa</strong>
+- Um aluno <strong>pertence</strong> a uma casa e uma casa possui um ou mais alunos;
+- Cardinalidade: (1:N).</p>
+<p><strong>Fred e Jorge - Casa</strong>
+- Fred e Jorge <strong>pertencem</strong> a uma casa e uma casa possui a dupla unicamente;
+- Cardinalidade: (1:1).</p>
+<p><strong>Área - Região</strong>
+- Uma área <strong>pertence</strong> a uma região e uma região possui zero ou mais áreas;
+- Cardinalidade: (1:N).</p>
+<p><strong>Região - Mapa</strong>
+- Uma região <strong>pertence</strong> a um mapa e um mapa possui zero ou mais regiões;
+- Cardinalidade: (1:N).</p>
+<p><strong>Professor - Feitiço</strong>
+- Um professor <strong>ensina</strong> um ou mais feitiços e um feitiço pode ser ensinado por um ou mais professores;
+- Cardinalidade: (M:N).</p>
+<p><strong>Livro - Feitiço</strong>
+- Um livro <strong>ensina</strong> um ou mais feitiços e um feitiço pode ser ensinado por um ou mais livros;
+- Cardinalidade: (M:N).</p>
+<p><strong>Feitiço - Habilidade</strong>
+- Um feitiço <strong>requer</strong> uma ou mais habilidades e uma habilidade por ser requerida por um ou mais feitiços;
+- Cardinalidade: (M:N).</p>
+<p><strong>Inventário - Item</strong>
+- Um inventário <strong>possui</strong> zero ou mais itens e um item pode estar contido em zero ou mais inventários;
+- Cardinalidade: (M:N).</p>
 
 
 
