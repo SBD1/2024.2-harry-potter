@@ -480,6 +480,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DER_HarryPotter_v1.0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DER
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -670,51 +691,81 @@
 <li><strong>Feitiços</strong>: <ins>id-feitico</ins>, tipo-feitico, habilidade-requerida.</li>
 </ul>
 <h2 id="3-relacionamentos">3. Relacionamentos</h2>
-<p><strong>Personagem - Inventário</strong>
-- Um personagem <strong>possui</strong> um inventário e um inventário pode ser possuído por um ou mais personagens;
-- Cardinalidade: (1:N).</p>
-<p><strong>Personagem - Habilidade</strong>
-- Um personagem <strong>possui</strong> uma ou mais habilidades e uma habilidade pode ser possuída por zero ou mais personagens;
-- Cardinalidade: (M:N).</p>
-<p><strong>Personagem - Missão</strong>
-- Um personagem <strong>participa</strong> de uma ou mais missões e uma missão pode ser composta por um ou mais personagens;
-- Cardinalidade: (M:N).</p>
-<p><strong>Personagem - Área</strong>
-- Um personagem <strong>está</strong> em uma área e uma área pode conter zero ou mais personagens;
-- Cardinalidade: (1:N).</p>
-<p><strong>Jogador(PC) - NPC</strong>
-- Um jogador <strong>interage</strong> com zero ou mais NPCs e um NPC pode interagir com zero ou mais jogadores;
-- Cardinalidade: (M:N).</p>
-<p><strong>Jogador(PC) - Casa</strong>
-- Um jogador <strong>pertence</strong> a uma casa e uma casa possui um ou mais jogadores;
-- Cardinalidade: (1:N).</p>
-<p><strong>Professor - Casa</strong>
-- Um professor <strong>pertence</strong> a uma casa e uma casa possui um ou mais professores;
-- Cardinalidade: (1:N).</p>
-<p><strong>Aluno - Casa</strong>
-- Um aluno <strong>pertence</strong> a uma casa e uma casa possui um ou mais alunos;
-- Cardinalidade: (1:N).</p>
-<p><strong>Fred e Jorge - Casa</strong>
-- Fred e Jorge <strong>pertencem</strong> a uma casa e uma casa possui a dupla unicamente;
-- Cardinalidade: (1:1).</p>
-<p><strong>Área - Região</strong>
-- Uma área <strong>pertence</strong> a uma região e uma região possui zero ou mais áreas;
-- Cardinalidade: (1:N).</p>
-<p><strong>Região - Mapa</strong>
-- Uma região <strong>pertence</strong> a um mapa e um mapa possui zero ou mais regiões;
-- Cardinalidade: (1:N).</p>
-<p><strong>Professor - Feitiço</strong>
-- Um professor <strong>ensina</strong> um ou mais feitiços e um feitiço pode ser ensinado por um ou mais professores;
-- Cardinalidade: (M:N).</p>
-<p><strong>Livro - Feitiço</strong>
-- Um livro <strong>ensina</strong> um ou mais feitiços e um feitiço pode ser ensinado por um ou mais livros;
-- Cardinalidade: (M:N).</p>
-<p><strong>Feitiço - Habilidade</strong>
-- Um feitiço <strong>requer</strong> uma ou mais habilidades e uma habilidade por ser requerida por um ou mais feitiços;
-- Cardinalidade: (M:N).</p>
-<p><strong>Inventário - Item</strong>
-- Um inventário <strong>possui</strong> zero ou mais itens e um item pode estar contido em zero ou mais inventários;
-- Cardinalidade: (M:N).</p>
+<p><strong>Personagem - Inventário</strong></p>
+<ul>
+<li>Um personagem <strong>possui</strong> um inventário e um inventário pode ser possuído por um ou mais personagens;</li>
+<li>Cardinalidade: (1:N).</li>
+</ul>
+<p><strong>Personagem - Habilidade</strong></p>
+<ul>
+<li>Um personagem <strong>possui</strong> uma ou mais habilidades e uma habilidade pode ser possuída por zero ou mais personagens;</li>
+<li>Cardinalidade: (M:N).</li>
+</ul>
+<p><strong>Personagem - Missão</strong></p>
+<ul>
+<li>Um personagem <strong>participa</strong> de uma ou mais missões e uma missão pode ser composta por um ou mais personagens;</li>
+<li>Cardinalidade: (M:N).</li>
+</ul>
+<p><strong>Personagem - Área</strong></p>
+<ul>
+<li>Um personagem <strong>está</strong> em uma área e uma área pode conter zero ou mais personagens;</li>
+<li>Cardinalidade: (1:N).</li>
+</ul>
+<p><strong>Jogador(PC) - NPC</strong></p>
+<ul>
+<li>Um jogador <strong>interage</strong> com zero ou mais NPCs e um NPC pode interagir com zero ou mais jogadores;</li>
+<li>Cardinalidade: (M:N).</li>
+</ul>
+<p><strong>Jogador(PC) - Casa</strong></p>
+<ul>
+<li>Um jogador <strong>pertence</strong> a uma casa e uma casa possui um ou mais jogadores;</li>
+<li>Cardinalidade: (1:N).</li>
+</ul>
+<p><strong>Professor - Casa</strong></p>
+<ul>
+<li>Um professor <strong>pertence</strong> a uma casa e uma casa possui um ou mais professores;</li>
+<li>Cardinalidade: (1:N).</li>
+</ul>
+<p><strong>Aluno - Casa</strong></p>
+<ul>
+<li>Um aluno <strong>pertence</strong> a uma casa e uma casa possui um ou mais alunos;</li>
+<li>Cardinalidade: (1:N).</li>
+</ul>
+<p><strong>Fred e Jorge - Casa</strong></p>
+<ul>
+<li>Fred e Jorge <strong>pertencem</strong> a uma casa e uma casa possui a dupla unicamente;</li>
+<li>Cardinalidade: (1:1).</li>
+</ul>
+<p><strong>Área - Região</strong></p>
+<ul>
+<li>Uma área <strong>pertence</strong> a uma região e uma região possui zero ou mais áreas;</li>
+<li>Cardinalidade: (1:N).</li>
+</ul>
+<p><strong>Região - Mapa</strong></p>
+<ul>
+<li>Uma região <strong>pertence</strong> a um mapa e um mapa possui zero ou mais regiões;</li>
+<li>Cardinalidade: (1:N).</li>
+</ul>
+<p><strong>Professor - Feitiço</strong></p>
+<ul>
+<li>Um professor <strong>ensina</strong> um ou mais feitiços e um feitiço pode ser ensinado por um ou mais professores;</li>
+<li>Cardinalidade: (M:N).</li>
+</ul>
+<p><strong>Livro - Feitiço</strong></p>
+<ul>
+<li>Um livro <strong>ensina</strong> um ou mais feitiços e um feitiço pode ser ensinado por um ou mais livros;</li>
+<li>Cardinalidade: (M:N).</li>
+</ul>
+<p><strong>Feitiço - Habilidade</strong></p>
+<ul>
+<li>Um feitiço <strong>requer</strong> uma ou mais habilidades e uma habilidade por ser requerida por um ou mais feitiços;</li>
+<li>Cardinalidade: (M:N).</li>
+</ul>
+<p><strong>Inventário - Item</strong></p>
+<ul>
+<li>Um inventário <strong>possui</strong> zero ou mais itens e um item pode estar contido em zero ou mais inventários;</li>
+<li>Cardinalidade: (M:N).</li>
+</ul>
 
 
 
