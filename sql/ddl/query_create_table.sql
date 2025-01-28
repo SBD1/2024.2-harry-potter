@@ -69,8 +69,8 @@ CREATE TABLE IF NOT EXISTS PersonagemPossuiVantagem (
 
 CREATE TABLE IF NOT EXISTS PC (
 	idPersonagem INT NOT NULL PRIMARY KEY,
-	idCasa INT NOT NULL,
-	varinha TEXT NOT NULL,
+	idCasa INT,
+	varinha TEXT,
 
 	FOREIGN KEY (idPersonagem) REFERENCES Personagem (idPersonagem),
 	FOREIGN KEY (idCasa) REFERENCES Casa (idCasa)
