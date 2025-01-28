@@ -19,3 +19,21 @@ class Area: #definição da classe de Áreas do Mapa
             self.south_area = south_area
             self.west_area = west_area
             self.east_area = east_area
+
+class House:
+        def __init__(self, idHouse, name, responsableProfessor, advantage):
+            self.idHouse = idHouse
+            self.name = name
+            self.responsableProfessor = responsableProfessor
+            self.advantage = advantage
+
+class NPC(Character):
+        def __init__(self, id_character, id_area, life, level, name, fala, idHouse=0):
+            super().__init__(id_character, id_area, life, level, name, idHouse)
+            self.fala = fala
+
+class Professor(NPC):
+        def __init__(self, id_character, id_area, life, level, name, fala, disciplina, idHouse=0):
+            super().__init__(id_character, id_area, life, level, name, fala, idHouse)
+            self.disciplina = disciplina
+
