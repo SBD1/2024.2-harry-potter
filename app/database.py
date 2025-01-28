@@ -21,21 +21,28 @@ class Database:
         query = f"INSERT INTO Personagem (vida, nivel, idarea, nome)values (100, 1, 2, '{name}')"
         cursor.execute(query)
         connection.commit()
+        query = f"INSERT INTO PC (idPersonagem) VALUES ((SELECT idPersonagem FROM Personagem WHERE nome = '{name}'))"
+        cursor.execute(query)
+        connection.commit()
 
     @staticmethod
     def load_character(connection, name) -> Character:
-        cursor = connection.cursor()
-        query = f"SELECT * FROM Personagem WHERE nome = '{name}'"
-        cursor.execute(query)
-        character = cursor.fetchone()
-        player = Character(*character, *(0, ) * (6 - len(character)))
-        if character:
-            return player
-        else:
-            return -1
+        try:
+            cursor = connection.cursor()
+            query = f"SELECT * FROM Personagem WHERE nome = '{name}'"
+            cursor.execute(query)
+            character = cursor.fetchone()
+            player = Character(*character, *(0, ) * (6 - len(character)))
+            if character:
+                return player
+            else:
+                return -1
+        except Exception as e:
+            pass
+            # print("Personagem não encontrado!")
 
     @staticmethod
-    def change_area(connection, player, direction):
+    def move(connection, player, direction):
         cursor = connection.cursor()
         #tenho que mudar a area que o personagem está
         #primeiro pegar a area que o personagem está
