@@ -20,10 +20,10 @@ CREATE TABLE IF NOT EXISTS Area (
 	idArea INT NOT NULL PRIMARY KEY,
 	idRegiao INT NOT NULL,
 	nome VARCHAR(50),
-	areaNorte INT NOT NULL,
-	areaSul INT NOT NULL,
-	areaLeste INT NOT NULL,
-	areaOeste INT NOT NULL,
+	areaNorte INT,
+	areaSul INT,
+	areaLeste INT,
+	areaOeste INT,
 	descricaoArea TEXT NOT NULL,
 
 	FOREIGN KEY (idRegiao) REFERENCES Regiao (idRegiao)
