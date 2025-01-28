@@ -99,6 +99,41 @@ class Database:
         area_description = cursor.fetchone()
         print(area_description[0])
 
+    @classmethod
+    def get_area_name(cls, connection, player):
+        cursor = connection.cursor()
+        query = f"SELECT nome FROM Area WHERE idArea = {player.id_area}"
+        cursor.execute(query)
+        nome = cursor.fetchone()
+        return nome[0]
+
+    @classmethod
+    def set_house(cls, connection, player):
+        cursor = connection.cursor()
+        query = f"UPDATE PC SET idCasa = {player.idHouse} WHERE idPersonagem = {player.id_character}"
+        cursor.execute(query)
+        connection.commit()
+
+    @classmethod
+    def get_house(cls, connection, player):
+        cursor = connection.cursor()
+        query = f"""
+                SELECT c.nomeCasa 
+                FROM PC p
+                JOIN Casa c ON p.idCasa = c.idcasa
+                WHERE p.idpersonagem = {player.id_character}
+                """
+        cursor.execute(query)
+        nome = cursor.fetchone()
+        return nome[0]
+
+    @classmethod
+    def set_area(cls, connection, player, idarea):
+        cursor = connection.cursor()
+        query = f"UPDATE Personagem SET idArea = {idarea} WHERE idPersonagem = {player.id_character}"
+        cursor.execute(query)
+        connection.commit()
+
 
 def main():
     Database.create_connection()
