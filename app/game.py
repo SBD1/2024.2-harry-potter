@@ -88,41 +88,42 @@ class Game:
               f'Você é o mais novo aluno da Escola de Magia e Bruxaria de Hogwarts.\n'
               f'Está na hora de começar sua jornada!\n'
               f'Boa sorte!\n\n\n')
-
         while True:
             self.get_current_area()
             self.get_possibles_directions()
             direction = input()
             if direction == '1':
                 self.move_character(direction)
-                self.get_current_area()
-                self.get_possibles_directions()
-                direction = input()
-                if direction == '1':
-                    self.choice_house()
-                    self.press_key_to_continue()
-                    clear()
-                    print(texto_pos_selecao)
-                    self.press_key_to_continue()
-                    print(texto_inicial_sobre_o_artefato)
-                    print("Assim, curioso, você foi dormir, pronto para o primeiro dia de aula em Hogwarts.\n")
-                    print("O dia amanheceu e o seu primeiro dia de aula em hogwarts começou!")
-                    if self.player.idHouse == 1: #grifinória
-                        idarea = 15
-                    elif self.player.idHouse == 3: #corvinal
-                        idarea = 16
-                    elif self.player.idHouse == 2: #sonserina
-                        idarea = 17
-                    elif self.player.idHouse == 4: #lufa-lufa
-                        idarea = 18
-                    Database.set_area(self.connection, self.player, idarea)
-                    break
-                else:
-                    print('Você não pode ir para essa direção ainda!\n')
+                while True:
+                    self.get_current_area()
+                    self.get_possibles_directions()
+                    direction = input()
+                    if direction == '1':
+                        self.choice_house()
+                        self.press_key_to_continue()
+                        clear()
+                        print(texto_pos_selecao)
+                        self.press_key_to_continue()
+                        print(texto_inicial_sobre_o_artefato)
+                        print("Assim, curioso, você foi dormir, pronto para o primeiro dia de aula em Hogwarts.\n")
+                        print("O dia amanheceu e o seu primeiro dia de aula em hogwarts começou!")
+                        if self.player.idHouse == 1: #grifinória
+                            idarea = 15
+                        elif self.player.idHouse == 3: #corvinal
+                            idarea = 16
+                        elif self.player.idHouse == 2: #sonserina
+                            idarea = 17
+                        elif self.player.idHouse == 4: #lufa-lufa
+                            idarea = 18
+                        Database.set_area(self.connection, self.player, idarea)
+                        break
+                    else:
+                        clear()
+                        print('Você não pode ir para essa direção ainda!\n')
+                break
             else:
                 clear()
                 print('Você não pode ir para essa direção ainda!\n')
-
         self.continue_game()
 
     def choice_house(self):
