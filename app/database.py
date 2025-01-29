@@ -1,4 +1,6 @@
 #fazer a conexão com o database
+import sys
+
 import psycopg2
 from classes import *
 
@@ -54,6 +56,8 @@ class Database:
             direction = 'leste'
         elif direction == '4':
             direction = 'oeste'
+        elif direction == '0':
+            sys.exit()
         query_update = (f""" UPDATE Personagem
                       SET idArea = (SELECT area{direction} FROM Area WHERE idArea = {player.id_area})
                       WHERE idPersonagem = {player.id_character};
@@ -89,7 +93,8 @@ class Database:
         print(f'1- NORTE: {areas[0]}\n'
               f'2- SUL: {areas[1]}\n'
               f'3- LESTE: {areas[2]}\n'
-              f'4- OESTE: {areas[3]}\n')
+              f'4- OESTE: {areas[3]}\n\n\n'
+              f'0- SAIR:')
 
     @staticmethod
     def get_area_description(connection, player):

@@ -94,7 +94,6 @@ class Game:
             self.get_possibles_directions()
             direction = input()
             if direction == '2':
-                #fazer a dinâmica de escolher a casa
                 self.move_character(direction)
                 self.choice_house()
                 self.press_key_to_continue()
