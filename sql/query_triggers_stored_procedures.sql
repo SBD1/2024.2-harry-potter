@@ -255,3 +255,24 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER check_min_life
 BEFORE INSERT OR UPDATE ON Personagem
 FOR EACH ROW EXECUTE PROCEDURE check_min_life();
+
+-- Trigger para atualizar nivel de habilidade
+CREATE OR REPLACE FUNCTION valida_nivel_habilidade()
+RETURNS TRIGGER AS $$
+DECLARE
+    nivel_personagem INT;
+    nivel_requerido INT;
+BEGIN
+    SELECT nivel INTO nivel_personagem FROM Personagem WHERE idPersonagem = NEW.idPersonagem;
+    SELECT nivel INTO nivel_requerido FROM Habilidade WHERE idHabilidade = NEW.idHabilidade;
+
+    IF nivel_personagem < nivel_requerido THEN
+        RAISE EXCEPTION 'Nível do personagem (%) insuficiente para a habilidade (Requerido: %).', nivel_personagem, nivel_requerido;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER valida_nivel_habilidade
+BEFORE INSERT ON PersonagemPossuiHabilidade
+FOR EACH ROW EXECUTE PROCEDURE valida_nivel_habilidade();
