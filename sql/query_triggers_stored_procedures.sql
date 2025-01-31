@@ -88,7 +88,7 @@ BEGIN
 		UNION ALL
 		SELECT 1 FROM FredEJorge WHERE idFredEJorge = NEW.idPersonagem
 	) THEN
-		RAISE EXCEPTION 'Personagem já existe em outro tabela.';
+		RAISE EXCEPTION 'Personagem já existe em outra tabela.';
 	END IF;
 
 	RETURN NEW;
@@ -119,3 +119,58 @@ FOR EACH ROW EXECUTE PROCEDURE check_personagem_unique();
 CREATE TRIGGER check_fredJorge_unique
 BEFORE INSERT ON FredEJorge
 FOR EACH ROW EXECUTE PROCEDURE check_personagem_unique();
+
+-- Trigger para verificar tipo de Item ao inserir em subtabelas (Poção e Livro)
+-- Caso para Livro ('L')
+CREATE OR REPLACE FUNCTION check_type_livro() RETURNS TRIGGER AS $$
+BEGIN
+	IF (SELECT tipoItem FROM Item WHERE idItem = NEW.idLivro) <> 'L'  THEN
+		RAISE EXCEPTION 'Tipo de Item inválido para Livro';
+	END IF;
+
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_type_livro
+BEFORE INSERT OR UPDATE ON Livro
+FOR EACH ROW EXECUTE PROCEDURE check_type_livro();
+
+-- Caso para Poção ('P')
+CREATE OR REPLACE FUNCTION check_type_pocao() RETURNS TRIGGER AS $$
+BEGIN
+	IF (SELECT tipoItem FROM Item WHERE idItem = NEW.idPocao) <> 'P'  THEN
+		RAISE EXCEPTION 'Tipo de Item inválido para Poção';
+	END IF;
+
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_type_pocao
+BEFORE INSERT OR UPDATE ON Pocao
+FOR EACH ROW EXECUTE PROCEDURE check_type_pocao();
+
+-- Trigger para garantir exclusividade entre subtabelas de Item
+CREATE OR REPLACE FUNCTION check_item_unique() RETURNS TRIGGER AS $$
+BEGIN
+	IF EXISTS (
+		SELECT 1 FROM Livro WHERE idLivro = NEW.idItem
+		UNION ALL
+		SELECT 1 FROM Pocao WHERE idPocao = NEW.idItem
+	) THEN
+		RAISE EXCEPTION 'Item já existe em outra tabela.';
+	END IF;
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Caso para Livro
+CREATE TRIGGER check_livro_unique
+BEFORE INSERT ON Livro
+FOR EACH ROW EXECUTE PROCEDURE check_item_unique();
+
+-- Caso para Poção
+CREATE TRIGGER check_pocao_unique
+BEFORE INSERT ON Pocao
+FOR EACH ROW EXECUTE PROCEDURE check_item_unique();
