@@ -120,6 +120,25 @@ CREATE TRIGGER check_fredJorge_unique
 BEFORE INSERT ON FredEJorge
 FOR EACH ROW EXECUTE PROCEDURE check_personagem_unique();
 
+-- Trigger que verifica a deleção na tabela Personagem
+CREATE OR REPLACE FUNCTION delete_subtipo_personagem() RETURNS TRIGGER AS $$
+BEGIN
+	CASE OLD.tipoPersonagem
+		WHEN 'J' THEN DELETE FROM PC WHERE idJogador = OLD.idPersonagem;
+		WHEN 'I' THEN DELETE FROM Inimigo WHERE idInimigo = OLD.idPersonagem;
+		WHEN 'P' THEN DELETE FROM Professor WHERE idProfessor = OLD.idPersonagem;
+		WHEN 'A' THEN DELETE FROM Aluno WHERE idAluno = OLD.idPersonagem;
+		WHEN 'F' THEN DELETE FROM FredEJorge WHERE idFredEJorge = OLD.idPersonagem;
+	END CASE;
+
+	RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER delete_subtipo_personagem
+BEFORE DELETE ON Personagem
+FOR EACH ROW EXECUTE PROCEDURE delete_subtipo_personagem();
+
 -- Trigger para verificar tipo de Item ao inserir em subtabelas (Poção e Livro)
 -- Caso para Livro ('L')
 CREATE OR REPLACE FUNCTION check_type_livro() RETURNS TRIGGER AS $$
@@ -174,3 +193,50 @@ FOR EACH ROW EXECUTE PROCEDURE check_item_unique();
 CREATE TRIGGER check_pocao_unique
 BEFORE INSERT ON Pocao
 FOR EACH ROW EXECUTE PROCEDURE check_item_unique();
+
+-- Trigger que verifica a deleção na tabela Item
+CREATE OR REPLACE FUNCTION delete_subtipo_item() RETURNS TRIGGER AS $$
+BEGIN
+	CASE OLD.tipoItem
+		WHEN 'L' THEN DELETE FROM Livro WHERE idLivro = OLD.idItem;
+		WHEN 'P' THEN DELETE FROM Pocao WHERE idPocao = OLD.idItem;
+	END CASE;
+
+	RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER delete_subtipo_item
+BEFORE DELETE ON Item
+FOR EACH ROW EXECUTE PROCEDURE delete_subtipo_item();
+
+
+-- Trigger para verificar se o inventário já está cheio
+CREATE OR REPLACE FUNCTION check_inventario_size() RETURNS TRIGGER AS $$
+DECLARE
+	count_itens INT;
+	max_itens INT;
+BEGIN
+	SELECT COUNT(*) INTO count_itens FROM (
+		SELECT idInventario FROM Pocao WHERE idInventario = NEW.idInventario
+		UNION ALL
+		SELECT idInventario FROM Livro WHERE idInventario = NEW.idInventario
+	) AS total;
+
+	SELECT tamanho INTO max_itens FROM Inventario WHERE idInventario = NEW.idInventario;
+
+	IF itens_count >= max_itens THEN
+		RAISE EXCEPTION 'Inventário Cheio.';
+	END IF;
+
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_inventario_pocao
+BEFORE INSERT ON Pocao
+FOR EACH ROW EXECUTE PROCEDURE check_inventario_size();
+
+CREATE TRIGGER check_inventario_livro
+BEFORE INSERT ON Livro
+FOR EACH ROW EXECUTE PROCEDURE check_inventario_size();
