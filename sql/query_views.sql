@@ -71,3 +71,17 @@ LEFT JOIN Item i ON inv.idInventario = i.idItem
 LEFT JOIN Pocao p ON i.idItem = p.idPocao
 LEFT JOIN Livro l ON i.idItem = l.idLivro
 LEFT JOIN Habilidade h ON COALESCE(p.idHabilidade, l.idHabilidade) = h.idHabilidade;
+
+-- View para mostrar as conexões das áreas para a navegação
+CREATE VIEW vConexoesArea AS
+SELECT 
+	a1.nome AS areaOrigem,
+	a2.nome AS areaNorte,
+	a3.nome AS areaSul,
+	a4.nome AS areaLeste,
+	a5.nome AS areaOeste
+FROM Area a1
+LEFT JOIN Area a2 ON a1.areaNorte = a2.idArea
+LEFT JOIN Area a3 ON a1.areaSul = a3.idArea
+LEFT JOIN Area a4 ON a1.areaLeste = a4.idArea
+LEFT JOIN Area a5 ON a1.areaOeste = a5.idArea;
