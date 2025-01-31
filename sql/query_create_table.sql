@@ -251,3 +251,33 @@ CREATE TABLE IF NOT EXISTS LivroEnsinaFeitico (
 	FOREIGN KEY (idLivro) REFERENCES Livro (idLivro),
 	FOREIGN KEY (idFeitico) REFERENCES Feitico (idFeitico)
 );
+
+-- Trigger para verificar se o inventário já está cheio
+CREATE OR REPLACE FUNCTION check_inventario_size() RETURNS TRIGGER AS $$
+DECLARE
+	count_itens INT;
+	max_itens INT;
+BEGIN
+	SELECT COUNT(*) INTO count_itens FROM (
+		SELECT idInventario FROM Pocao WHERE idInventario = NEW.idInventario
+		UNION ALL
+		SELECT idInventario FROM Livro WHERE idInventario = NEW.idInventario
+	) AS total;
+
+	SELECT tamanho INTO max_itens FROM Inventario WHERE idInventario = NEW.idInventario;
+
+	IF itens_count >= max_itens THEN
+		RAISE EXCEPTION 'Inventário Cheio.';
+	END IF;
+
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_inventario_pocao
+BEFORE INSERT ON Pocao
+FOR EACH ROW EXECUTE PROCEDURE check_inventario_size();
+
+CREATE TRIGGER check_inventario_livro
+BEFORE INSERT ON Livro
+FOR EACH ROW EXECUTE PROCEDURE check_inventario_size();
