@@ -240,3 +240,18 @@ FOR EACH ROW EXECUTE PROCEDURE check_inventario_size();
 CREATE TRIGGER check_inventario_livro
 BEFORE INSERT ON Livro
 FOR EACH ROW EXECUTE PROCEDURE check_inventario_size();
+
+-- Trigger para garantir que a vida do personagem nunca seja negativa
+CREATE OR REPLACE FUNCTION check_min_life() RETURNS TRIGGER AS $$
+BEGIN
+	IF NEW.vida < 0 THEN
+		NEW.vida := 0;
+	END IF;
+
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_min_life
+BEFORE INSERT OR UPDATE ON Personagem
+FOR EACH ROW EXECUTE PROCEDURE check_min_life();
