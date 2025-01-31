@@ -17,3 +17,17 @@ JOIN Mapa m ON r.idMapa = m.idMapa
 LEFT JOIN Inventario inventory ON pc.idJogador = inventory.idPersonagem
 LEFT JOIN Item i ON inventory.idInventario = i.idItem
 GROUP BY pc.idJogador, c.nomeCasa, a.nome, r.nome, m.nome;
+
+-- View para listar inimigos por área e região
+CREATE VIEW vInimigosPorArea AS
+SELECT 
+	i.nome AS nomeInimigo,
+	i.vida,
+	i.nivel,
+	a.nome AS area,
+	r.nome AS regiao,
+	m.nome AS mapa
+FROM Inimigo i
+JOIN Area a ON i.idArea = a.idArea
+JOIN Regiao r ON a.idRegiao = r.idRegiao
+JOIN Mapa m ON r.idMapa = m.idMapa;
