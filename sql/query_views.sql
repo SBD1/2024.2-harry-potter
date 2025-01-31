@@ -41,3 +41,33 @@ SELECT
 FROM Feitico f
 JOIN Habilidade h ON f.habilidadeRequerida = h.idHabilidade
 JOIN Professor p ON f.idProfessor = p.idProfessor;
+
+-- View para detalhar itens no inventário
+CREATE VIEW vInventario AS
+SELECT 
+    inv.idInventario,
+    COALESCE(
+        pc.nome, 
+        ini.nome, 
+        prof.nome, 
+        aluno.nome, 
+        fj.nome
+    ) AS nome_dono,
+    CASE 
+        WHEN i.tipoItem = 'P' THEN p.nomePocao
+        WHEN i.tipoItem = 'L' THEN l.nomeLivro
+    END AS nome_item,
+    i.tipoItem AS tipo,
+    p.efeito AS efeito_pocao,
+    h.nome AS habilidade_relacionada
+FROM Inventario inv
+JOIN Personagem pers ON inv.idPersonagem = pers.idPersonagem
+LEFT JOIN PC pc ON pers.idPersonagem = pc.idJogador
+LEFT JOIN Inimigo ini ON pers.idPersonagem = ini.idInimigo
+LEFT JOIN Professor prof ON pers.idPersonagem = prof.idProfessor
+LEFT JOIN Aluno aluno ON pers.idPersonagem = aluno.idAluno
+LEFT JOIN FredEJorge fj ON pers.idPersonagem = fj.idFredEJorge
+LEFT JOIN Item i ON inv.idInventario = i.idItem
+LEFT JOIN Pocao p ON i.idItem = p.idPocao
+LEFT JOIN Livro l ON i.idItem = l.idLivro
+LEFT JOIN Habilidade h ON COALESCE(p.idHabilidade, l.idHabilidade) = h.idHabilidade;
