@@ -20,28 +20,39 @@ class Database:
     @staticmethod
     def create_character(connection, name):
         cursor = connection.cursor()
-        query = f"INSERT INTO Personagem (vida, nivel, idarea, nome)values (100, 1, 2, '{name}')"
+        query = "INSERT INTO Personagem (tipoPersonagem) VALUES ('J') RETURNING idPersonagem"
         cursor.execute(query)
+        idPersonagem = cursor.fetchone()[0]
         connection.commit()
-        query = f"INSERT INTO PC (idPersonagem) VALUES ((SELECT idPersonagem FROM Personagem WHERE nome = '{name}'))"
-        cursor.execute(query)
-        connection.commit()
+        return idPersonagem
+    
 
     @staticmethod
-    def load_character(connection, name) -> Character:
-        try:
-            cursor = connection.cursor()
-            query = f"SELECT * FROM Personagem WHERE nome = '{name}'"
-            cursor.execute(query)
-            character = cursor.fetchone()
-            player = Character(*character, *(0, ) * (6 - len(character)))
-            if character:
-                return player
-            else:
-                return -1
-        except Exception as e:
-            pass
-            # print("Personagem não encontrado!")
+    def create_pc(connection, idPersonagem, name):
+        cursor = connection.cursor()
+        query = """
+                INSERT INTO PC (idJogador, idArea, vida, nivel, nome) 
+                VALUES (%s, 2, 100, 1, %s)
+                """
+        cursor.execute(query, (idPersonagem, name))
+        connection.commit()
+
+
+    @staticmethod
+    def load_character(connection, name):
+        cursor = connection.cursor()
+        query = "SELECT * FROM PC WHERE nome = %s"
+        cursor.execute(query, (name,))
+        player_data = cursor.fetchone()
+    
+        if player_data:
+            return Character(*player_data)  # Ou você pode formatar conforme necessário
+        else:
+            return None
+
+
+
+
 
     @staticmethod
     def move(connection, player, direction):
@@ -58,13 +69,13 @@ class Database:
             direction = 'oeste'
         elif direction == '0':
             sys.exit()
-        query_update = (f""" UPDATE Personagem
+        query_update = (f""" UPDATE PC
                       SET idArea = (SELECT area{direction} FROM Area WHERE idArea = {player.id_area})
-                      WHERE idPersonagem = {player.id_character};
+                      WHERE idJogador = {player.id_character};
                   """)
         cursor.execute(query_update)
 
-        query_select = (f""" SELECT idArea FROM Personagem WHERE idPersonagem = {player.id_character}""")
+        query_select = (f""" SELECT idArea FROM PC WHERE idJogador = {player.id_character}""")
         cursor.execute(query_select)
         player.id_area = cursor.fetchone()[0]
         connection.commit()
@@ -115,7 +126,7 @@ class Database:
     @classmethod
     def set_house(cls, connection, player):
         cursor = connection.cursor()
-        query = f"UPDATE PC SET idCasa = {player.idHouse} WHERE idPersonagem = {player.id_character}"
+        query = f"UPDATE PC SET idCasa = {player.idHouse} WHERE idJogador = {player.id_character}"
         cursor.execute(query)
         connection.commit()
 
@@ -126,7 +137,7 @@ class Database:
                 SELECT c.nomeCasa 
                 FROM PC p
                 JOIN Casa c ON p.idCasa = c.idcasa
-                WHERE p.idpersonagem = {player.id_character}
+                WHERE p.idJogador = {player.id_character}
                 """
         cursor.execute(query)
         nome = cursor.fetchone()
@@ -135,7 +146,7 @@ class Database:
     @classmethod
     def set_area(cls, connection, player, idarea):
         cursor = connection.cursor()
-        query = f"UPDATE Personagem SET idArea = {idarea} WHERE idPersonagem = {player.id_character}"
+        query = f"UPDATE PC SET idArea = {idarea} WHERE idJogador = {player.id_character}"
         cursor.execute(query)
         connection.commit()
 

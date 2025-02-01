@@ -68,7 +68,8 @@ class Game:
             print('Nome inválido! O nome do personagem não pode ser vazio.\n')
             self.start()
 
-        self.player = Database.create_character(self.connection, name)
+        idPersonagem = Database.create_character(self.connection, name)
+        self.player = Database.create_pc(self.connection, idPersonagem, name)
         self.player = Database.load_character(self.connection, name)
         self.new_game()
     def load_character(self):
