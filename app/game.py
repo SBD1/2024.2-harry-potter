@@ -105,9 +105,11 @@ class Game:
                         clear()
                         print(texto_pos_selecao)
                         self.press_key_to_continue()
+                        clear()
                         print(texto_inicial_sobre_o_artefato)
                         print("Assim, curioso, você foi dormir, pronto para o primeiro dia de aula em Hogwarts.\n")
                         print("O dia amanheceu e o seu primeiro dia de aula em hogwarts começou!")
+                        self.press_key_to_continue()
                         if self.player.idHouse == 1: #grifinória
                             idarea = 15
                         elif self.player.idHouse == 3: #corvinal
