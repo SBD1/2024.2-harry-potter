@@ -116,6 +116,7 @@ class Game:
                             idarea = 17
                         elif self.player.idHouse == 4: #lufa-lufa
                             idarea = 18
+                        self.player.id_area = idarea
                         Database.set_area(self.connection, self.player, idarea)
                         break
                     else:
@@ -137,13 +138,12 @@ class Game:
               f"E toda a mesa da casa entrou em euforia com a sua seleção!\n")
 
     def continue_game(self):
-        clear()
-        self.get_current_area()
-        self.get_possibles_directions()
-
-
-
-
+        while True:
+            clear()
+            self.get_current_area()
+            self.get_possibles_directions()
+            direction = input()
+            self.move_character(direction)
 
 
     def press_key_to_continue(self):
