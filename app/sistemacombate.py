@@ -1,14 +1,14 @@
-import time
+# game/combat_system.py
 
-import random
+from classescombate import Jogador, Inimigo
 
 def combate(jogador, inimigo):
-    print(f"Um {inimigo.nome} selvagem apareceu!")
+    print(f"Um {inimigo.name} selvagem apareceu!")
     
     while jogador.esta_vivo() and inimigo.esta_vivo():
         print(f"\n{'-'*30}")
-        print(f"{jogador.nome}: {jogador.vida} HP")
-        print(f"{inimigo.nome}: {inimigo.vida} HP")
+        print(f"{jogador.name}: {jogador.life} HP")
+        print(f"{inimigo.name}: {inimigo.life} HP")
         print(f"{'-'*30}")
         
         # Turno do jogador
@@ -40,6 +40,6 @@ def combate(jogador, inimigo):
     
     # Resultado do combate
     if jogador.esta_vivo():
-        print(f"\n{inimigo.nome} foi derrotado!")
+        print(f"\n{inimigo.name} foi derrotado!")
     else:
-        print(f"\n{jogador.nome} foi derrotado!")
+        print(f"\n{jogador.name} foi derrotado!")
