@@ -66,19 +66,45 @@ VALUES
 (40,4, 'Salão Godric Gryffindor e Salazar Slytherin',5,39,15,17,'Com tons vibrantes de vermelho, dourado, verde e prata.  É um lugar que inspira desafios, liderança e respeito entre forças opostas.');
 
 -- Personagem 
-INSERT INTO Personagem (idPersonagem,idArea,vida,nivel,nome) 
-VALUES                                                                         
-(1,5,100,10,'Albus Dumbledore'), 
-(2,13,100,10,'Severus Snape'), 
-(3,2,100,10,'Minerva McGonagall'), 
-(4,12,100,10,'Hermione Granger'),
-(5,4,100,10,'Ron Weasley'),
-(6,18,100,10,'Draco Malfoy'),
-(7,20,100,2,'Lobo'),
-(8,20,100,5,'Dementador'),
-(9,10,100,10,'Neville Longbottom'), 
-(10,14,100,10,'Fílio Flitwick'),                                                
-(11,6,100,10,'Pomona Sprout');
+
+INSERT INTO Personagem (idPersonagem,tipoPersonagem)
+VALUES
+(1,'P'),
+(2,'P'),
+(3,'P'),
+(4,'A'),
+(5,'A'),
+(6,'A'),
+(7,'I'),
+(8,'I'),
+(9,'A'),
+(10,'P'),
+(11,'P');
+
+
+-- INIMIGOS 
+INSERT INTO Inimigo (idInimigo,falas,idArea,vida,nivel,nome,danoBase)
+VALUES
+(7,'AAAUUU',20,100,2,'Lobo',20),
+(8,'uuuuuu',20,100,5,'Dementador',50);
+
+
+-- Professor 
+INSERT INTO Professor (idProfessor,falas,idArea,vida,nivel,nome,idCasa,disciplina)
+VALUES                                                                          
+(1,'Eu sou Dumbledore',4,100,100,'Albus Dumbledore',1,'Defesa Contra as Artes das Trevas'),                                    
+(2,'Eu sou Snape',13,1000,90,'Severus Snape',2,'Poções'),                                                               
+(3,'Eu sou Minerva',37,100,90,'Minerva McGonagall',1,'Transfiguração'),                                                       
+(10,'Eu sou Filio',36,100,90,'Fílio Flitwick',4,'Feitiços'),                                                            
+(11,'Eu sou Pomona',14,100,90,'Pomona Sprout',3,'Herbologia');
+
+-- ALunos 
+INSERT INTO Aluno (idAluno,falas,idArea,idCasa,vida,nivel,nome)
+VALUES                                                                       
+(6,'Eu sou o Draco',23,2,100,50,'Draco Malfoy'),                                                                        
+(5,'Eu sou o Ron',3,1,100,50,'Ron Weasley'),                                                                        
+(4,'Eu sou a Heminione',11,1,100,50,'Hermione Granger'),
+(9,'Eu sou o Neville',10,3,100,50,'Neville Longbottom');
 
 
 -- Vantagens 
@@ -88,40 +114,6 @@ VALUES
 (2,'Afinidade com as Artes das Trevas','O personagem tem um entendimento profundo das Artes das Trevas e pode usá-las para manipular ou derrotar inimigos'),    
 (3,'Defesa de Criaturas Mágicas','O personagem é especializado na defesa e proteção de criaturas mágicas, sendo capaz de acalmar ou conter até as mais perigosas delas sem se ferir');
 
-
--- NPC
-
-
-INSERT INTO NPC (idPersonagem,falas)                             
-VALUES                                                                          
-(1,'Bem vindo à Hogwards'),                                                     
-(2,'Saia do meu caminho!'),                                                     
-(3,'Bem vindo à Hogwards'),                                                     
-(10,'Para aprender um feitiço é preciso assistir as aulas!'),                   
-(11,'Nessa floresta há sempre monstros a espreita cuidado!'),
-(6,'Você realmente acha que é digno de estar no mesmo lugar que eu?'),          
-(5,'Você sabe, quando eu pensei que minha vida na escola de magia poderia ficar mais estranha, eu não imaginava que estaríamos lutando contra dragões e... bom, enfrentando coisas ainda mais bizarras. Só mais um dia com os amigos, né?'),    
-(4,'Vocês sabem, não é apenas sobre ser corajoso. A verdadeira chave é usar a inteligência para resolver os problemas. Se pararmos para pensar e estudar as coisas com atenção, não há nada que não possamos enfrentar.'),
-(7,'huuuu'), 
-(8,'haaa'), 
-(9,'Eu sei que nunca fui o mais forte ou o mais esperto, mas aprendi que a verdadeira coragem não é não ter medo... é enfrentá-lo, mesmo quando tudo dentro de você diz para correr.'); 
-
--- Professor
-INSERT INTO Professor (idPersonagem,idCasa,disciplina)
-VALUES                                                                          
-(1,1,'Defesa Contra as Artes das Trevas'),                                    
-(2,2,'Poções'),                                                               
-(3,1,'Transfiguração'),                                                       
-(10,4,'Feitiços'),                                                            
-(11,3,'Herbologia');
-
-
--- Alunos 
-INSERT INTO Aluno (idPersonagem,idCasa,idVantagem)               
-VALUES                                                                          
-(6,2,2),                                                                        
-(5,1,3),                                                                        
-(4,1,1);
 
 -- ProfessorCordenaCasa
 INSERT INTO ProfessorCoordenaCasa (idCasa,idProfessor)           
@@ -136,21 +128,9 @@ INSERT INTO AlunoPorCasa (idAluno,idCasa)
 VALUES                                                                          
 (6,2),                                                                          
 (5,1),                                                                          
-(4,1);
+(4,1),
+(9,3);
 
---PersonagemPossuiVantagem 
-INSERT INTO PersonagemPossuiVantagem (idPersonagem,idVantagem)   
-VALUES                                                                          
-(1,1),                                                                          
-(2,1),                                                                          
-(11,3);
-
-
---Inimigo
-INSERT INTO Inimigo (idPersonagem)                               
-VALUES                                                                          
-(7), 
-(8);
 
 
 

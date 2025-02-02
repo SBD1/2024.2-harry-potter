@@ -1,13 +1,14 @@
 #definir as classes
 
 class Character: #definição da classe de Personagens
-        def __init__(self, id_character, id_area, life, level, name, idHouse=0):
+        def __init__(self, id_character, id_area, life, level, name, idHouse=0,Wand=None):
             self.id_character = id_character
             self.life = life
             self.level = level
             self.name = name
             self.id_area = id_area
             self.idHouse = idHouse
+            self.Wand = Wand
 
 
 class Area: #definição da classe de Áreas do Mapa
