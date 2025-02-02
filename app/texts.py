@@ -37,3 +37,26 @@ Há muitos que buscam seu poder, mas nem todos são dignos de controlá-lo. E o 
 A conversa deixa você com a sensação de que a busca por esse artefato vai muito além do que qualquer um imagina. 
 E, de alguma forma, você sente que está prestes a se envolver em algo muito maior do que imaginava.\n
 """
+
+texto_do_primeiro_dia = """
+O som do sino ecoa pelos corredores de pedra de Hogwarts, 
+puxando você de um sono pesado. Sem tempo para pensar em Alistair ou no artefato, 
+você rapidamente se veste e segue o fluxo de alunos até sua primeira aula: 
+Defesa Contra as Artes das Trevas.\n
+"""
+
+
+texto_aula_defesa_contra_as_artes_das_trevas = """
+A atmosfera na sala está carregada de tensão. 
+O professor Albus Dumbledore se posiciona diante da turma e inicia a aula com um tom grave,
+alertando sobre os perigos dos feitiços das trevas e a importância da defesa contra eles. 
+Com atenção redobrada, os alunos empunham suas varinhas 
+e começam a praticar o Expelliarmus contra alvos animados, dando início à intensa lição.\n
+"""
+
+texto_pos_aula_defesa =  """
+No fim da aula, enquanto recolhe seus materiais, um estudante de outra casa se aproxima. Edgar Thornwell, um garoto magricela de cabelos bagunçados, puxa assunto ao ver seu olhar intrigado.
+"Você tá com uma cara de quem tem perguntas," ele comenta com um sorriso torto.
+"Você já ouviu falar sobre um artefato dos fundadores?" você solta, aproveitando a oportunidade.
+\n
+"""
