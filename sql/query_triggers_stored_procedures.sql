@@ -276,3 +276,48 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER valida_nivel_habilidade
 BEFORE INSERT ON PersonagemPossuiHabilidade
 FOR EACH ROW EXECUTE PROCEDURE valida_nivel_habilidade();
+
+-- Trigger para atualizar o nível do jogador
+CREATE OR REPLACE FUNCTION update_level() RETURNS TRIGGER AS $$
+DECLARE
+	required_xp INT;
+BEGIN
+	LOOP
+		required_xp := NEW.nivel*100;
+
+		IF NEW.xp > required_xp THEN
+			NEW.nivel := NEW.nivel + 1;
+			NEW.XP := OLD.nivel - required_xp;
+		ELSE
+			EXIT;
+		END IF;
+	END LOOP;
+
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_level
+BEFORE INSERT OR UPDATE OF xp ON PC
+FOR EACH ROW EXECUTE PROCEDURE update_level();
+
+-- Trigger para verificar se a interação está correta
+CREATE OR REPLACE FUNCTION check_interacao() RETURNS TRIGGER AS $$
+DECLARE
+	type_personagem CHAR(1);
+BEGIN
+	SELECT p.tipoPersonagem INTO type_personagem
+	FROM Personagem p
+	WHERE p.idPersonagem = NEW.idNPC;
+	
+	IF type_personagem = 'J' THEN
+		RAISE EXCEPTION 'O tipo do NPC não pode ser Jogador';
+	END IF;
+
+	RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER check_interacao
+BEFORE INSERT OR UPDATE ON Interacao
+FOR EACH ROW EXECUTE PROCEDURE check_interacao();
