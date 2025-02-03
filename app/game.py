@@ -398,10 +398,13 @@ class Game:
 
         if pontos >= perguntas.len()/2:
             print("🌟 Excelente! Você acertou mais da metade das perguntas e demonstrou um grande conhecimento na matéria")
+            self.player.xp += 30
         elif pontos <= perguntas.len()/2:
             print("⚠️ Você acertou menos da metade das pergunta. Precisa estudar mais!")
+            self.player.xp += 15
         elif pontos == 0:
             print("❌ Você não acertou nenhuma pergunta... Tome cuidado para não reprovar!")
+            self.player.xp += 5
 
         self.press_key_to_continue()
 
