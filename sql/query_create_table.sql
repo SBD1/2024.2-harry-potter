@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS Personagem (
 	-- 'A' -> Aluno
 	-- 'P' -> Professor
 	-- 'F' -> FredEJorge
-	tipoPersonagem VARCHAR(1) NOT NULL CHECK (tipoPersonagem IN('J', 'I', 'A', 'P', 'F'))
+	tipoPersonagem CHAR(1) NOT NULL CHECK (tipoPersonagem IN('J', 'I', 'A', 'P', 'F'))
 );
 
 CREATE TABLE IF NOT EXISTS PC (
@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS PC (
 	nome VARCHAR(50) NOT NULL UNIQUE,
 	idCasa INT,
 	varinha TEXT,
+	xp INT NOT NULL,
 
 	FOREIGN KEY (idJogador) REFERENCES Personagem (idPersonagem),
 	FOREIGN KEY (idCasa) REFERENCES Casa (idCasa),
@@ -187,7 +188,7 @@ CREATE TABLE IF NOT EXISTS Item (
 	
 	-- 'P' -> Poção
 	-- 'L' -> Livro
-	tipoItem VARCHAR(1) NOT NULL CHECK (tipoItem IN ('P', 'L'))
+	tipoItem CHAR(1) NOT NULL CHECK (tipoItem IN ('P', 'L'))
 );
 
 CREATE TABLE IF NOT EXISTS Livro (
