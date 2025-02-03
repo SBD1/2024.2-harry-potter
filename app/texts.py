@@ -37,3 +37,58 @@ Há muitos que buscam seu poder, mas nem todos são dignos de controlá-lo. E o 
 A conversa deixa você com a sensação de que a busca por esse artefato vai muito além do que qualquer um imagina. 
 E, de alguma forma, você sente que está prestes a se envolver em algo muito maior do que imaginava.\n
 """
+
+texto_do_primeiro_dia = """
+O som do sino ecoa pelos corredores de pedra de Hogwarts, 
+puxando você de um sono pesado. Sem tempo para pensar em Alistair ou no artefato, 
+você rapidamente se veste e segue o fluxo de alunos até sua primeira aula: 
+Defesa Contra as Artes das Trevas.\n
+"""
+
+
+texto_aula_defesa_contra_as_artes_das_trevas = """
+A atmosfera na sala está carregada de tensão. 
+O professor Albus Dumbledore se posiciona diante da turma e inicia a aula com um tom grave,
+alertando sobre os perigos dos feitiços das trevas e a importância da defesa contra eles. 
+Com atenção redobrada, os alunos empunham suas varinhas 
+e começam a praticar o Expelliarmus contra alvos animados, dando início à intensa lição.\n
+"""
+
+texto_pos_aula_defesa =  """
+No fim da aula, enquanto recolhe seus materiais, um estudante de outra casa se aproxima. Edgar Thornwell, um garoto magricela de cabelos bagunçados, puxa assunto ao ver seu olhar intrigado.
+"Você tá com uma cara de quem tem perguntas," ele comenta com um sorriso torto.
+"Você já ouviu falar sobre um artefato dos fundadores?" você solta, aproveitando a oportunidade.
+\n
+"""
+
+texto_aula_herbologia = """
+O aroma terroso das plantas preenche a estufa iluminada pelo sol da manhã.
+A professora Pomona Sprout, com suas luvas de couro desgastadas, orienta os alunos sobre o manuseio das mandrágoras, alertando para os riscos de seu grito ensurdecedor.
+Com cuidado, os estudantes ajustam seus protetores auriculares e começam a retirar as plantas dos vasos, sentindo a terra úmida entre os dedos.
+As folhas vibram com energia mágica, enquanto raízes retorcidas se debatem no ar.
+Cada aluno trabalha com concentração, sabendo que na Herbologia, um pequeno erro pode ter grandes consequências.
+"""
+
+texto_aula_pocoes = """
+O cheiro de ervas e ingredientes exóticos paira no ar enquanto os alunos se posicionam diante de seus caldeirões fumegantes.
+A professora Miriam Ravenshadow percorre a sala com passos firmes, seus olhos atentos avaliando cada mistura em progresso.
+Com um tom sério, ela reforça a necessidade de precisão absoluta: uma gota a mais de essência de asfódelo pode transformar uma poção curativa em um veneno perigoso.
+Os estudantes medem, cortam e misturam seus ingredientes com extrema cautela, observando as mudanças de cor e textura em suas preparações.
+A magia líquida dança nos caldeirões, e a sala inteira parece vibrar com a alquimia em ação.
+"""
+
+texto_aula_feiticos = """  
+A sala de aula está repleta de expectativa enquanto os alunos empunham suas varinhas, prontos para aprimorar suas habilidades mágicas.  
+O professor Edward Whitmore caminha pelo corredor, observando cada movimento com olhos atentos, corrigindo posturas e entonações.  
+"A precisão na pronúncia e o gesto adequado são essenciais para a execução de um feitiço eficaz", ele enfatiza, demonstrando com um leve movimento da varinha.  
+Os estudantes repetem suas tentativas, concentrando-se no encantamento *Wingardium Leviosa*, vendo penas começarem a levitar com hesitação.  
+Entre faíscas esporádicas e sorrisos de satisfação, a magia flui pelo ar, transformando a aula em um espetáculo de aprendizado e controle.  
+"""
+
+texto_aula_transfiguracao = """  
+A sala está silenciosa, apenas o som de páginas viradas e respirações contidas preenche o espaço enquanto os alunos aguardam a demonstração.  
+A professora Celeste Montclair ergue a varinha com precisão e, com um movimento elegante, transforma um pequeno cálice de estanho em um pássaro dourado que esvoaça pela sala.  
+"Transfiguração exige foco absoluto e compreensão da essência do objeto", explica, sua voz firme e controlada.  
+Os estudantes franzem a testa em concentração, tentando replicar o feitiço, mas muitos dos objetos permanecem apenas parcialmente alterados—orelhas em xícaras, patas onde deveriam estar alças.  
+Entre tentativas e erros, a sala se enche de murmúrios encantados e olhares determinados, pois todos sabem que dominar a transfiguração é uma das maiores provas da verdadeira habilidade mágica.  
+"""
