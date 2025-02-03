@@ -396,9 +396,9 @@ class Game:
         clear()
         print("📜 Aula encerrada! O professor avalia seu desempenho...\n")
 
-        if pontos >= len(perguntas)/2:
+        if pontos >= perguntas.len()/2:
             print("🌟 Excelente! Você acertou mais da metade das perguntas e demonstrou um grande conhecimento na matéria")
-        elif pontos <= len(perguntas)/2:
+        elif pontos <= perguntas.len()/2:
             print("⚠️ Você acertou menos da metade das pergunta. Precisa estudar mais!")
         elif pontos == 0:
             print("❌ Você não acertou nenhuma pergunta... Tome cuidado para não reprovar!")
