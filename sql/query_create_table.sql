@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS PC (
 	nome VARCHAR(50) NOT NULL UNIQUE,
 	idCasa INT,
 	varinha TEXT,
+	xp INT NOT NULL,
 
 	FOREIGN KEY (idJogador) REFERENCES Personagem (idPersonagem),
 	FOREIGN KEY (idCasa) REFERENCES Casa (idCasa),
