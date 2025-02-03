@@ -202,6 +202,7 @@ O dicionário de dados é um documento que contém informações detalhadas sobr
 | nomePocao               | Nome da Poção            | VARCHAR      | 50      | **NOT NULL**                                  |
 | efeito             | Efeito da poção (ex: cura 50 de vida)      | TEXT      | -     | **NOT NULL**                                  |
 | idInventario         | FK para a entidade Inventário             | INT      | 4      | **FK** para `Inventario(idInventario)`                                |
+| idHabilidade         | Habilidade requerida pela Poção              | INT      | 4      | **FK** para `Habilidade(idHabilidade)`, **NOT NULL**                                  |
 
 ---
 
