@@ -151,13 +151,34 @@ class Game:
             self.get_current_area()
             self.get_possibles_directions()
             direction = input()
+            anterior_area =  self.player.id_area
             self.move_character(direction)
 
             if self.player.id_area == 12:
-                self.class_Defesa_Contra_as_Artes_das_Trevas()
-                break 
-    
-    def class_Defesa_Contra_as_Artes_das_Trevas(self):
+                self.class_Defesa_Contra_as_Artes_das_Trevas(anterior_area)
+            if self.player.id_area == 13:
+                self.class_Pocoes(anterior_area)
+            if self.player.id_area == 14:
+                self.class_Herbologia(anterior_area)
+            if self.player.id_area == 35:
+                self.class_Historia_da_Magia(anterior_area)
+            if self.player.id_area == 36:
+                self.class_Feiticos(anterior_area)
+            if self.player.id_area == 37:
+                self.class_Transfiguracao(anterior_area)
+
+
+
+    def class_Herbologia(self, anterior_area):
+        clear()
+        print(texto_aula_herbologia)
+        self.press_key_to_continue()
+        clear()
+        print('Hoje vamos testar os seus conhecimentos em herbologia!\n')
+        self.press_key_to_continue()
+        clear()
+        self.quiz_herbologia(anterior_area)
+    def class_Defesa_Contra_as_Artes_das_Trevas(self, anterior_area):
         clear()
         print(texto_aula_defesa_contra_as_artes_das_trevas)
         self.press_key_to_continue()
@@ -165,9 +186,172 @@ class Game:
         print('Hoje vamos testar os seus conhecimentos em feitiços de defesa!\n')
         self.press_key_to_continue()
         clear()
-        self.quiz_defesa_artes_trevas()
+        self.quiz_defesa_artes_trevas(anterior_area)
+    def class_Pocoes(self, anterior_area):
+        clear()
+        print(texto_aula_pocoes)
+        self.press_key_to_continue()
+        clear()
+        print('Hoje vamos testar os seus conhecimentos em poções!\n')
+        self.press_key_to_continue()
+        clear()
+        self.quiz_pocoes(anterior_area)
 
-    def quiz_defesa_artes_trevas(self):
+    def class_Historia_da_Magia(self, anterior_area):
+        clear()
+        print("\nObs: não está tendo aula\n")
+        print("\nApós a aula, você sai da sala e continua sua jornada em Hogwarts.")
+        self.press_key_to_continue()
+        self.player.id_area = anterior_area
+        Database.set_area(self.connection, self.player, anterior_area)
+
+    def class_Feiticos(self, anterior_area):
+        clear()
+        print(texto_aula_feiticos)
+        self.press_key_to_continue()
+        clear()
+        print('Hoje vamos testar os seus conhecimentos em feitiços!\n')
+        self.press_key_to_continue()
+        clear()
+        self.quiz_feiticos(anterior_area)
+
+    def class_Transfiguracao(self, anterior_area):
+        clear()
+        print(texto_aula_feiticos)
+        self.press_key_to_continue()
+        clear()
+        print('Hoje vamos testar os seus conhecimentos em transfiguração!\n')
+        self.press_key_to_continue()
+        clear()
+        self.quiz_transfiguracao(anterior_area)
+
+    def quiz_transfiguracao(self, anterior_area):
+        perguntas = [
+            {
+                "pergunta": "Qual feitiço é usado para transformar um objeto em outro?",
+                "opcoes": ["A) Transformato", "B) Avifors", "C) Transfigura", "D) Transmuto"],
+                "resposta": "C"
+            },
+            {
+                "pergunta": "Qual feitiço transforma uma pena em um pássaro?",
+                "opcoes": ["A) Avifors", "B) Flipendo", "C) Engorgio", "D) Reducio"],
+                "resposta": "A"
+            },
+            {
+                "pergunta": "Qual é o nome da professora que ensina Transfiguração em Hogwarts?",
+                "opcoes": ["A) Minerva McGonagall", "B) Pomona Sprout", "C) Filius Flitwick", "D) Severus Snape"],
+                "resposta": "A"
+            },
+            {
+                "pergunta": "O que acontece se você falhar em uma transfiguração complexa?",
+                "opcoes": ["A) O objeto se transforma em um animal", "B) O objeto se desintegra",
+                           "C) A transformação é revertida", "D) A transformação se torna permanente"],
+                "resposta": "C"
+            },
+            {
+                "pergunta": "Qual feitiço é usado para transfigurar algo em uma substância maior, como transformar uma bola em um tronco?",
+                "opcoes": ["A) Engorgio", "B) Reducio", "C) Diffindo", "D) Leviosa"],
+                "resposta": "A"
+            }
+        ]
+        self.sum_points(perguntas, anterior_area)
+
+    def quiz_feiticos(self, anterior_area):
+        perguntas = [
+            {
+                "pergunta": "Qual feitiço é usado para levitar objetos?",
+                "opcoes": ["A) Expelliarmus", "B) Wingardium Leviosa", "C) Stupefy", "D) Lumos"],
+                "resposta": "B"
+            },
+            {
+                "pergunta": "Qual feitiço pode ser usado para repelir dementadores?",
+                "opcoes": ["A) Expecto Patronum", "B) Protego", "C) Riddikulus", "D) Obliviate"],
+                "resposta": "A"
+            },
+            {
+                "pergunta": "Qual feitiço é utilizado para abrir fechaduras trancadas?",
+                "opcoes": ["A) Alohomora", "B) Reducto", "C) Bombarda", "D) Colloportus"],
+                "resposta": "A"
+            },
+            {
+                "pergunta": "Qual é o efeito do feitiço 'Stupefy'?",
+                "opcoes": ["A) Paralisa o alvo", "B) Cega temporariamente o inimigo", "C) Lança o alvo para trás",
+                           "D) Cria um escudo protetor"],
+                "resposta": "A"
+            },
+            {
+                "pergunta": "Qual desses feitiços é considerado uma Maldição Imperdoável?",
+                "opcoes": ["A) Crucio", "B) Expelliarmus", "C) Incendio", "D) Reparo"],
+                "resposta": "A"
+            }
+        ]
+        self.sum_points(perguntas, anterior_area)
+
+    def quiz_pocoes(self, anterior_area):
+        perguntas = [
+            {
+                "pergunta": "Qual ingrediente é essencial para a Poção Polissuco?",
+                "opcoes": ["A) Asfódelo", "B) Folha de Mandrágora", "C) Besouro Triturado",
+                           "D) Pedaço da pessoa a ser transformada"],
+                "resposta": "D"
+            },
+            {
+                "pergunta": "Qual é o efeito da Poção do Morto-Vivo?",
+                "opcoes": ["A) Aumenta a força", "B) Faz a pessoa dormir profundamente", "C) Torna a pessoa invisível",
+                           "D) Concede sorte extrema"],
+                "resposta": "B"
+            },
+            {
+                "pergunta": "O que acontece se adicionar espinhos de porco-espinho à Poção para Feridas antes de remover o caldeirão do fogo?",
+                "opcoes": ["A) A poção explodirá", "B) A poção perderá seu efeito", "C) A poção ficará venenosa",
+                           "D) A poção se tornará invisível"],
+                "resposta": "A"
+            },
+            {
+                "pergunta": "Qual poção é conhecida por conceder sorte extrema por um período limitado?",
+                "opcoes": ["A) Poção do Morto-Vivo", "B) Amortentia", "C) Felix Felicis", "D) Veritaserum"],
+                "resposta": "C"
+            },
+            {
+                "pergunta": "Qual destas poções é um poderoso soro da verdade?",
+                "opcoes": ["A) Veritaserum", "B) Poção Polissuco", "C) Felix Felicis", "D) Essência de Ditamno"],
+                "resposta": "A"
+            }
+        ]
+        self.sum_points(perguntas, anterior_area)
+    def quiz_herbologia(self, anterior_area):
+        perguntas = [
+            {
+                "pergunta": "Qual planta mágica emite um grito mortal ao ser arrancada do solo?",
+                "opcoes": ["A) Mandrágora", "B) Visgo do Diabo", "C) Tentácula Venenosa", "D) Dedosdemel"],
+                "resposta": "A"
+            },
+            {
+                "pergunta": "Qual dessas plantas pode estrangular uma pessoa se for provocada?",
+                "opcoes": ["A) Mimbulus Mimbletonia", "B) Tentácula Venenosa", "C) Salgueiro Lutador", "D) Dedaleira"],
+                "resposta": "B"
+            },
+            {
+                "pergunta": "O que deve ser feito para acalmar o Visgo do Diabo?",
+                "opcoes": ["A) Jogar água", "B) Acender uma luz", "C) Cantar para ele",
+                           "D) Jogar pó de chifre de unicórnio"],
+                "resposta": "B"
+            },
+            {
+                "pergunta": "Qual dessas plantas libera um líquido fedorento quando tocada?",
+                "opcoes": ["A) Mimbulus Mimbletonia", "B) Berrador", "C) Erva-dos-Sonhos", "D) Snargaluff"],
+                "resposta": "A"
+            },
+            {
+                "pergunta": "Para que serve a Essência de Ditamno?",
+                "opcoes": ["A) Curar ferimentos", "B) Melhorar a visão", "C) Ampliar os sentidos",
+                           "D) Fortalecer o sistema imunológico"],
+                "resposta": "A"
+            }
+        ]
+        self.sum_points(perguntas, anterior_area)
+
+    def quiz_defesa_artes_trevas(self, anterior_area):
         perguntas = [
 
             {
@@ -186,6 +370,9 @@ class Game:
                 "resposta": "A"
             }
         ]
+        self.sum_points(perguntas, anterior_area)
+
+    def sum_points(self, perguntas, anterior_area):
 
         pontos = 0
 
@@ -194,7 +381,7 @@ class Game:
             print("🧙‍♂️ Professor: " + pergunta["pergunta"] + "\n")
             for opcao in pergunta["opcoes"]:
                 print(opcao)
-        
+
             resposta_usuario = input("\nDigite a letra da resposta correta: ").strip().upper()
 
             if resposta_usuario == pergunta["resposta"]:
@@ -202,26 +389,27 @@ class Game:
                 pontos += 1
             else:
                 print("\n❌ Errado! A resposta correta era:", pergunta["resposta"])
-        
+
             self.press_key_to_continue()
 
 
         clear()
         print("📜 Aula encerrada! O professor avalia seu desempenho...\n")
 
-        if pontos >= 2:
-            print("🌟 Excelente! Você acertou todas as perguntas e demonstrou um grande conhecimento em Defesa Contra as Artes das Trevas.")
-        elif pontos == 1:
-            print("⚠️ Você acertou apenas 1 pergunta. Precisa treinar mais seus feitiços defensivos!")
-        else:
-            print("❌ Você não acertou nenhuma pergunta... Tome cuidado para não ser pego por um bruxo das trevas!")
+        if pontos >= perguntas.len()/2:
+            print("🌟 Excelente! Você acertou mais da metade das perguntas e demonstrou um grande conhecimento na matéria")
+        elif pontos <= perguntas.len()/2:
+            print("⚠️ Você acertou menos da metade das pergunta. Precisa estudar mais!")
+        elif pontos == 0:
+            print("❌ Você não acertou nenhuma pergunta... Tome cuidado para não reprovar!")
 
         self.press_key_to_continue()
 
         print("\nApós a aula, você sai da sala e continua sua jornada em Hogwarts.")
         self.press_key_to_continue()
-        self.player.id_area = 33
-        self.continue_game()
+        self.player.id_area = anterior_area
+        Database.set_area(self.connection, self.player, anterior_area)
+
 
 
 
@@ -242,9 +430,6 @@ class Game:
     def move_character(self, direction):
         Database.move(self.connection, self.player, direction)
         clear()
-
-
-
 
 
 if __name__ == '__main__':
