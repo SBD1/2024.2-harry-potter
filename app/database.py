@@ -1,4 +1,6 @@
 #fazer a conexão com o database
+import sys
+
 import psycopg2
 from classes import *
 
@@ -18,24 +20,42 @@ class Database:
     @staticmethod
     def create_character(connection, name):
         cursor = connection.cursor()
-        query = f"INSERT INTO Personagem (vida, nivel, idarea, nome)values (100, 1, 2, '{name}')"
+        query = "INSERT INTO Personagem (tipoPersonagem) VALUES ('J') RETURNING idPersonagem"
         cursor.execute(query)
+        idPersonagem = cursor.fetchone()[0]
+        connection.commit()
+        return idPersonagem
+    
+
+    @staticmethod
+    def create_pc(connection, idPersonagem, name):
+        cursor = connection.cursor()
+        query = """
+                INSERT INTO PC (idJogador, idArea, vida, nivel, nome) 
+                VALUES (%s, 2, 100, 1, %s)
+                """
+        cursor.execute(query, (idPersonagem, name))
         connection.commit()
 
-    @staticmethod
-    def load_character(connection, name) -> Character:
-        cursor = connection.cursor()
-        query = f"SELECT * FROM Personagem WHERE nome = '{name}'"
-        cursor.execute(query)
-        character = cursor.fetchone()
-        player = Character(*character, *(0, ) * (6 - len(character)))
-        if character:
-            return player
-        else:
-            return -1
 
     @staticmethod
-    def change_area(connection, player, direction):
+    def load_character(connection, name):
+        cursor = connection.cursor()
+        query = "SELECT * FROM PC WHERE nome = %s"
+        cursor.execute(query, (name,))
+        player_data = cursor.fetchone()
+    
+        if player_data:
+            return Character(*player_data)  # Ou você pode formatar conforme necessário
+        else:
+            return None
+
+
+
+
+
+    @staticmethod
+    def move(connection, player, direction):
         cursor = connection.cursor()
         #tenho que mudar a area que o personagem está
         #primeiro pegar a area que o personagem está
@@ -47,13 +67,15 @@ class Database:
             direction = 'leste'
         elif direction == '4':
             direction = 'oeste'
-        query_update = (f""" UPDATE Personagem
+        elif direction == '0':
+            sys.exit()
+        query_update = (f""" UPDATE PC
                       SET idArea = (SELECT area{direction} FROM Area WHERE idArea = {player.id_area})
-                      WHERE idPersonagem = {player.id_character};
+                      WHERE idJogador = {player.id_character};
                   """)
         cursor.execute(query_update)
 
-        query_select = (f""" SELECT idArea FROM Personagem WHERE idPersonagem = {player.id_character}""")
+        query_select = (f""" SELECT idArea FROM PC WHERE idJogador = {player.id_character}""")
         cursor.execute(query_select)
         player.id_area = cursor.fetchone()[0]
         connection.commit()
@@ -82,7 +104,8 @@ class Database:
         print(f'1- NORTE: {areas[0]}\n'
               f'2- SUL: {areas[1]}\n'
               f'3- LESTE: {areas[2]}\n'
-              f'4- OESTE: {areas[3]}\n')
+              f'4- OESTE: {areas[3]}\n\n\n'
+              f'0- SAIR:')
 
     @staticmethod
     def get_area_description(connection, player):
@@ -91,6 +114,63 @@ class Database:
         cursor.execute(query)
         area_description = cursor.fetchone()
         print(area_description[0])
+
+    @classmethod
+    def get_area_name(cls, connection, player):
+        cursor = connection.cursor()
+        query = f"SELECT nome FROM Area WHERE idArea = {player.id_area}"
+        cursor.execute(query)
+        nome = cursor.fetchone()
+        return nome[0]
+
+    @classmethod
+    def set_house(cls, connection, player):
+        cursor = connection.cursor()
+        query = f"UPDATE PC SET idCasa = {player.idHouse} WHERE idJogador = {player.id_character}"
+        cursor.execute(query)
+        connection.commit()
+
+    @classmethod
+    def get_house(cls, connection, player):
+        cursor = connection.cursor()
+        query = f"""
+                SELECT c.nomeCasa 
+                FROM PC p
+                JOIN Casa c ON p.idCasa = c.idcasa
+                WHERE p.idJogador = {player.id_character}
+                """
+        cursor.execute(query)
+        nome = cursor.fetchone()
+        return nome[0]
+
+    @classmethod
+    def set_area(cls, connection, player, idarea):
+        cursor = connection.cursor()
+        query = f"UPDATE PC SET idArea = {idarea} WHERE idJogador = {player.id_character}"
+        cursor.execute(query)
+        connection.commit()
+    
+    @classmethod
+    def get_inimigos_da_area(cls, connection, id_area):
+        cursor = connection.cursor()
+        query = "SELECT idInimigo, nome, vida, danoBase, falas, nivel FROM Inimigo WHERE idArea = %s"
+        cursor.execute(query, (id_area,))
+        inimigos = cursor.fetchall()
+    
+        return [Inimigo(id=inimigo[0], name=inimigo[1], life=inimigo[2], dano=inimigo[3], falas=inimigo[4], nivel=inimigo[5]) for inimigo in inimigos]
+
+
+
+    @classmethod
+    def update_player(cls, connection, player):
+        cursor = connection.cursor()
+        query = f"""
+                UPDATE PC
+                SET vida = {player.life}, nivel = {player.level}, xp = {player.xp}
+                WHERE idJogador = {player.id_character}
+                """
+        cursor.execute(query)
+        connection.commit()
 
 
 def main():
