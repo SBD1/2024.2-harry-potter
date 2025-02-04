@@ -68,8 +68,6 @@ class Game:
         if name == '':
             print('Nome inválido! O nome do personagem não pode ser vazio.\n')
             self.start()
-        
-
 
         idPersonagem = Database.create_character(self.connection, name)
         self.player = Database.create_pc(self.connection, idPersonagem, name)
@@ -91,7 +89,6 @@ class Game:
 
 
     def new_game(self):
-        
         clear()
         print(f' Bem-vindo(a) {self.player.name}!\n'
               f'Você é o mais novo aluno da Escola de Magia e Bruxaria de Hogwarts.\n'
@@ -113,7 +110,6 @@ class Game:
                         clear()
                         print(texto_pos_selecao)
                         self.press_key_to_continue()
-                        clear()
                         print(texto_inicial_sobre_o_artefato)
                         print("Assim, curioso, você foi dormir, pronto para o primeiro dia de aula em Hogwarts.\n")
                         print("O dia amanheceu e o seu primeiro dia de aula em hogwarts começou!")
@@ -415,12 +411,15 @@ class Game:
         clear()
         print("📜 Aula encerrada! O professor avalia seu desempenho...\n")
 
-        if pontos >= len(perguntas)/2:
+        if pontos >= perguntas.len()/2:
             print("🌟 Excelente! Você acertou mais da metade das perguntas e demonstrou um grande conhecimento na matéria")
-        elif pontos <= len(perguntas)/2:
+            self.player.xp += 30
+        elif pontos <= perguntas.len()/2:
             print("⚠️ Você acertou menos da metade das pergunta. Precisa estudar mais!")
+            self.player.xp += 15
         elif pontos == 0:
             print("❌ Você não acertou nenhuma pergunta... Tome cuidado para não reprovar!")
+            self.player.xp += 5
 
         self.press_key_to_continue()
 
@@ -451,7 +450,6 @@ class Game:
         clear()
 
 
-   
 
 if __name__ == '__main__':
     game = Game()

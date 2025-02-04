@@ -161,6 +161,17 @@ class Database:
 
 
 
+    @classmethod
+    def update_player(cls, connection, player):
+        cursor = connection.cursor()
+        query = f"""
+                UPDATE PC
+                SET vida = {player.life}, nivel = {player.level}, xp = {player.xp}
+                WHERE idJogador = {player.id_character}
+                """
+        cursor.execute(query)
+        connection.commit()
+
 
 def main():
     Database.create_connection()
