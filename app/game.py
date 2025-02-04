@@ -1,6 +1,7 @@
 #inicializar o jogo no terminal para o usuário
 import random
 
+from sistemacombate import combate
 from database import Database
 from classes import *
 from texts import *
@@ -67,6 +68,9 @@ class Game:
         if name == '':
             print('Nome inválido! O nome do personagem não pode ser vazio.\n')
             self.start()
+        
+        feitico_basico = Feitico(nome="Expelliarmus", habilidadeRequerida=0, chance_acerto=100.0)
+        self.player.feiticos.append(feitico_basico)
 
         idPersonagem = Database.create_character(self.connection, name)
         self.player = Database.create_pc(self.connection, idPersonagem, name)
@@ -153,6 +157,13 @@ class Game:
             direction = input()
             anterior_area =  self.player.id_area
             self.move_character(direction)
+
+            if self.player.id_area == 19:
+                connection = Database.create_connection()
+                inimigos = Database.get_inimigos_da_area(connection,19)
+                for inimigo in inimigos:
+                    print(f"⚔️ Você encontrou um {inimigo.name}!")
+                    combate(self.player, inimigo)
 
             if self.player.id_area == 12:
                 self.class_Defesa_Contra_as_Artes_das_Trevas(anterior_area)
@@ -431,6 +442,8 @@ class Game:
         Database.move(self.connection, self.player, direction)
         clear()
 
+
+   
 
 if __name__ == '__main__':
     game = Game()

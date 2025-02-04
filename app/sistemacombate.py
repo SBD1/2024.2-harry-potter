@@ -18,13 +18,13 @@ def combate(jogador, inimigo):
         escolha = input("> ")
         
         if escolha == "1":
-            if jogador.feitiços:
+            if jogador.feiticos:
                 print("Escolha um feitiço:")
-                for i, feitico in enumerate(jogador.feitiços):
+                for i, feitico in enumerate(jogador.feiticos):
                     print(f"{i+1}. {feitico.nome}")
                 escolha_feitico = int(input("> ")) - 1
-                if 0 <= escolha_feitico < len(jogador.feitiços):
-                    jogador.usar_feitico(jogador.feitiços[escolha_feitico], inimigo)
+                if 0 <= escolha_feitico < len(jogador.feiticos):
+                    jogador.usar_feitico(jogador.feiticos[escolha_feitico], inimigo)
                 else:
                     print("Escolha inválida!")
             else:

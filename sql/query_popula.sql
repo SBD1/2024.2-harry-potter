@@ -85,9 +85,8 @@ VALUES
 -- INIMIGOS 
 INSERT INTO Inimigo (idInimigo,falas,idArea,vida,nivel,nome,danoBase)
 VALUES
-(7,'AAAUUU',20,100,2,'Lobo',20),
-(8,'uuuuuu',20,100,5,'Dementador',50);
-
+(7,'AAAUUU',19,100,2,'Lobo',20),
+(8,'uuuuuu',19,100,5,'Dementador',50);
 
 -- Professor 
 INSERT INTO Professor (idProfessor,falas,idArea,vida,nivel,nome,idCasa,disciplina)
