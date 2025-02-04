@@ -16,7 +16,7 @@ class Character: #definição da classe de Personagens
         
         def usar_feitico(self, feitico, inimigo):
             print(f"{self.name} usou {feitico.nome}!")
-            inimigo.vida -=20
+            inimigo.life -=20
 
 
 class Area: #definição da classe de Áreas do Mapa

@@ -1,4 +1,4 @@
-# game/combat_system.py
+from texts import *
 
 from classescombate import Jogador, Inimigo
 
@@ -33,13 +33,17 @@ def combate(jogador, inimigo):
             jogador.usar_pocao()
         else:
             print("Escolha inválida!")
-        
-        # Turno do inimigo
+
+
         if inimigo.esta_vivo():
             inimigo.atacar(jogador)
     
-    # Resultado do combate
+
     if jogador.esta_vivo():
         print(f"\n{inimigo.name} foi derrotado!")
     else:
         print(f"\n{jogador.name} foi derrotado!")
+        jogador.id_area = 27
+        jogador.life = 100
+        print(texto_perdeu_a_luta)
+

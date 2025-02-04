@@ -69,12 +69,15 @@ class Game:
             print('Nome inválido! O nome do personagem não pode ser vazio.\n')
             self.start()
         
-        feitico_basico = Feitico(nome="Expelliarmus", habilidadeRequerida=0, chance_acerto=100.0)
-        self.player.feiticos.append(feitico_basico)
+
 
         idPersonagem = Database.create_character(self.connection, name)
         self.player = Database.create_pc(self.connection, idPersonagem, name)
         self.player = Database.load_character(self.connection, name)
+
+        feitico_basico = Feitico(nome="Expelliarmus", habilidadeRequerida=0, chance_acerto=100.0)
+        self.player.feiticos.append(feitico_basico)
+
         self.new_game()
     def load_character(self):
         clear()
@@ -155,28 +158,33 @@ class Game:
             self.get_current_area()
             self.get_possibles_directions()
             direction = input()
-            anterior_area =  self.player.id_area
-            self.move_character(direction)
+            if direction not in ['1', '2', '3', '4']:
+                clear()
+                print('Direção inválida! Tente novamente.\n')
+            else:
+                anterior_area =  self.player.id_area
+                self.move_character(direction)
+                if self.player.id_area == 19:
+                    connection = Database.create_connection()
+                    inimigos = Database.get_inimigos_da_area(connection,19)
+                    for inimigo in inimigos:
+                        clear()
+                        print(f"⚔️ Você encontrou um {inimigo.name}!")
+                        combate(self.player, inimigo)
+                        self.press_key_to_continue()
 
-            if self.player.id_area == 19:
-                connection = Database.create_connection()
-                inimigos = Database.get_inimigos_da_area(connection,19)
-                for inimigo in inimigos:
-                    print(f"⚔️ Você encontrou um {inimigo.name}!")
-                    combate(self.player, inimigo)
-
-            if self.player.id_area == 12:
-                self.class_Defesa_Contra_as_Artes_das_Trevas(anterior_area)
-            if self.player.id_area == 13:
-                self.class_Pocoes(anterior_area)
-            if self.player.id_area == 14:
-                self.class_Herbologia(anterior_area)
-            if self.player.id_area == 35:
-                self.class_Historia_da_Magia(anterior_area)
-            if self.player.id_area == 36:
-                self.class_Feiticos(anterior_area)
-            if self.player.id_area == 37:
-                self.class_Transfiguracao(anterior_area)
+                if self.player.id_area == 12:
+                    self.class_Defesa_Contra_as_Artes_das_Trevas(anterior_area)
+                if self.player.id_area == 13:
+                    self.class_Pocoes(anterior_area)
+                if self.player.id_area == 14:
+                    self.class_Herbologia(anterior_area)
+                if self.player.id_area == 35:
+                    self.class_Historia_da_Magia(anterior_area)
+                if self.player.id_area == 36:
+                    self.class_Feiticos(anterior_area)
+                if self.player.id_area == 37:
+                    self.class_Transfiguracao(anterior_area)
 
 
 
