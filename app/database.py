@@ -149,6 +149,17 @@ class Database:
         query = f"UPDATE PC SET idArea = {idarea} WHERE idJogador = {player.id_character}"
         cursor.execute(query)
         connection.commit()
+    
+    @classmethod
+    def get_inimigos_da_area(cls, connection, id_area):
+        cursor = connection.cursor()
+        query = "SELECT idInimigo, nome, vida, danoBase, falas, nivel FROM Inimigo WHERE idArea = %s"
+        cursor.execute(query, (id_area,))
+        inimigos = cursor.fetchall()
+    
+        return [Inimigo(id=inimigo[0], name=inimigo[1], life=inimigo[2], dano=inimigo[3], falas=inimigo[4], nivel=inimigo[5]) for inimigo in inimigos]
+
+
 
     @classmethod
     def update_player(cls, connection, player):

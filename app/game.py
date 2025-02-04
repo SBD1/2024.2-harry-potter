@@ -1,6 +1,7 @@
 #inicializar o jogo no terminal para o usuário
 import random
 
+from sistemacombate import combate
 from database import Database
 from classes import *
 from texts import *
@@ -71,6 +72,10 @@ class Game:
         idPersonagem = Database.create_character(self.connection, name)
         self.player = Database.create_pc(self.connection, idPersonagem, name)
         self.player = Database.load_character(self.connection, name)
+
+        feitico_basico = Feitico(nome="Expelliarmus", habilidadeRequerida=0, chance_acerto=100.0)
+        self.player.feiticos.append(feitico_basico)
+
         self.new_game()
     def load_character(self):
         clear()
@@ -84,7 +89,6 @@ class Game:
 
 
     def new_game(self):
-        
         clear()
         print(f' Bem-vindo(a) {self.player.name}!\n'
               f'Você é o mais novo aluno da Escola de Magia e Bruxaria de Hogwarts.\n'
@@ -106,7 +110,6 @@ class Game:
                         clear()
                         print(texto_pos_selecao)
                         self.press_key_to_continue()
-                        clear()
                         print(texto_inicial_sobre_o_artefato)
                         print("Assim, curioso, você foi dormir, pronto para o primeiro dia de aula em Hogwarts.\n")
                         print("O dia amanheceu e o seu primeiro dia de aula em hogwarts começou!")
@@ -151,21 +154,33 @@ class Game:
             self.get_current_area()
             self.get_possibles_directions()
             direction = input()
-            anterior_area =  self.player.id_area
-            self.move_character(direction)
+            if direction not in ['1', '2', '3', '4']:
+                clear()
+                print('Direção inválida! Tente novamente.\n')
+            else:
+                anterior_area =  self.player.id_area
+                self.move_character(direction)
+                if self.player.id_area == 19:
+                    connection = Database.create_connection()
+                    inimigos = Database.get_inimigos_da_area(connection,19)
+                    for inimigo in inimigos:
+                        clear()
+                        print(f"⚔️ Você encontrou um {inimigo.name}!")
+                        combate(self.player, inimigo)
+                        self.press_key_to_continue()
 
-            if self.player.id_area == 12:
-                self.class_Defesa_Contra_as_Artes_das_Trevas(anterior_area)
-            if self.player.id_area == 13:
-                self.class_Pocoes(anterior_area)
-            if self.player.id_area == 14:
-                self.class_Herbologia(anterior_area)
-            if self.player.id_area == 35:
-                self.class_Historia_da_Magia(anterior_area)
-            if self.player.id_area == 36:
-                self.class_Feiticos(anterior_area)
-            if self.player.id_area == 37:
-                self.class_Transfiguracao(anterior_area)
+                if self.player.id_area == 12:
+                    self.class_Defesa_Contra_as_Artes_das_Trevas(anterior_area)
+                if self.player.id_area == 13:
+                    self.class_Pocoes(anterior_area)
+                if self.player.id_area == 14:
+                    self.class_Herbologia(anterior_area)
+                if self.player.id_area == 35:
+                    self.class_Historia_da_Magia(anterior_area)
+                if self.player.id_area == 36:
+                    self.class_Feiticos(anterior_area)
+                if self.player.id_area == 37:
+                    self.class_Transfiguracao(anterior_area)
 
 
 
@@ -433,6 +448,7 @@ class Game:
     def move_character(self, direction):
         Database.move(self.connection, self.player, direction)
         clear()
+
 
 
 if __name__ == '__main__':

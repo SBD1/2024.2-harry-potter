@@ -92,3 +92,13 @@ A professora Celeste Montclair ergue a varinha com precisão e, com um movimento
 Os estudantes franzem a testa em concentração, tentando replicar o feitiço, mas muitos dos objetos permanecem apenas parcialmente alterados—orelhas em xícaras, patas onde deveriam estar alças.  
 Entre tentativas e erros, a sala se enche de murmúrios encantados e olhares determinados, pois todos sabem que dominar a transfiguração é uma das maiores provas da verdadeira habilidade mágica.  
 """
+
+
+texto_perdeu_a_luta = """
+A escuridão envolve a mente do jovem bruxo como uma neblina densa. A luta, a adrenalina, tudo parece ter desaparecido em um piscar de olhos.
+Quando seus olhos se abrem, o ambiente é completamente diferente. A luz suave das velas ilumina o teto branco e imaculado da enfermaria. O cheiro de ervas medicinais preenche o ar, e o som abafado de passos ecoa na distância.
+"Ah, você acordou", diz uma voz suave. É a enfermeira, Madam Pomfrey, que se aproxima com um sorriso reconfortante. "Você esteve inconsciente por algum tempo. Não se preocupe, já está em segurança."
+O corpo ainda dói, e uma sensação de fraqueza invade cada músculo, mas a mente, agora nítida, se lembra da batalha. De tudo o que foi perdido. O que aconteceu?
+"Você foi levado para cá por seus colegas", ela continua, cuidando dos ferimentos. "Agora, o mais importante é que você está bem."
+O jovem bruxo se senta lentamente, o olhar fixo no vazio à frente. A luta não foi apenas um desafio físico. Algo mais estava em jogo. E ele sabe que, embora tenha falhado desta vez, a verdadeira batalha ainda está por vir.
+"""
